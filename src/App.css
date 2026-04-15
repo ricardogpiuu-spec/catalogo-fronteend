@@ -1,0 +1,74 @@
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+
+/*.container button {
+  background-color: #0275d8;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  bottom: 16px;
+  right: 24px;
+  transition: all 0.1s linear 0.1s;
+}
+*/
+.container button:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 7px 0px;
+  transform: scale(1.1);
+}
+.container h1 {
+  font-size: 36px;
+  font-weight: 800;
+  text-align: center;
+  margin: 25px 0;
+
+  /* 🔥 degradê rosa premium */
+  background: linear-gradient(90deg, #c2185b, #e91e63, #ff4081);
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* brilho animado */
+  animation: brilho 3s linear infinite;
+
+  /* sombra leve */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+
+  letter-spacing: 1px;
+}
+
+/* ✨ animação brilho */
+@keyframes brilho {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* 💎 linha elegante embaixo */
+.container h1::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #c2185b, #ff4081);
+  margin: 10px auto 0;
+  border-radius: 10px;
+}
+
+/* 🔥 efeito hover */
+.container h1:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
