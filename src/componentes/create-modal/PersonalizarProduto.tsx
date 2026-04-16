@@ -1,21 +1,58 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
 import html2canvas from "html2canvas";
 import "./modal.css";
 
-export default function PersonalizarProduto({ produto, voltar }) {
-  const [elements, setElements] = useState([]);
-  const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState("");
-  const [selectedId, setSelectedId] = useState(null);
-  const [pos, setPos] = useState({ x: 80, y: 90 });
-  const [size, setSize] = useState({ width: 120, height: 120 });
-  const selectedElement = elements.find((el) => el.id === selectedId);
-  const [editingId, setEditingId] = useState(null);
-  const idRef = useRef(0);
-  const textRefs = useRef({});
+// 🔥 TIPOS
+type CanvasElement =
+  | {
+      id: number;
+      type: "image";
+      src: string;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      rotation: number;
+    }
+  | {
+      id: number;
+      type: "text";
+      text: string;
+      x: number;
+      y: number;
+      width: number;
+      height: number;
+      rotation: number;
+      fontSize: number;
+      color: string;
+      fontFamily: string;
+      fontWeight: string;
+      textAlign: string;
+    };
 
-  const mockupRef = useRef(null);
+type ProdutoData = {
+  title: string;
+  preco: number;
+  imagem: string;
+};
+
+type Props = {
+  produto: ProdutoData;
+  voltar: () => void;
+};
+export default function PersonalizarProduto({ produto, voltar }: Props) {
+  const [elements, setElements] = useState<CanvasElement[]>([]);
+
+  const [file, setFile] = useState<File | null>(null);
+
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
+  const [editingId, setEditingId] = useState<number | null>(null);
+
+  const textRefs = useRef<Record<number, HTMLDivElement | null>>({});
+
+  const mockupRef = useRef<HTMLDivElement | null>(null);
   const activeElement =
     elements.find((el) => el.id === selectedId) ||
     elements.find((el) => el.type === "text") ||
@@ -25,7 +62,6 @@ export default function PersonalizarProduto({ produto, voltar }) {
     if (!file) return;
 
     const url = URL.createObjectURL(file);
-    setPreview(url);
 
     // adiciona imagem como elemento
     setElements((prev) => [
@@ -52,14 +88,16 @@ export default function PersonalizarProduto({ produto, voltar }) {
   }, []);
 
   // 🔥 atualizar elemento
-  const updateElement = (id, newProps) => {
+  const updateElement = (id: number, newProps: Partial<CanvasElement>) => {
     setElements((prev) =>
-      prev.map((el) => (el.id === id ? { ...el, ...newProps } : el)),
+      prev.map((el) =>
+        el.id === id ? ({ ...el, ...newProps } as CanvasElement) : el,
+      ),
     );
   };
-
   // 🔥 gerar imagem FINAL (print da tela)
   const gerarImagemFinal = async () => {
+    if (!mockupRef.current) return "";
     const canvas = await html2canvas(mockupRef.current, {
       scale: 3,
       useCORS: true, // 🔥 ESSENCIAL PRA CLOUDINARY
@@ -69,8 +107,8 @@ export default function PersonalizarProduto({ produto, voltar }) {
     return canvas.toDataURL("image/png");
   };
 
-  const [rotation, setRotation] = useState(0);
-  const [zoom, setZoom] = useState(1);
+  const [rotation, setRotation] = useState<number>(0);
+  const [zoom, setZoom] = useState<number>(1);
 
   const baixarImagem = async () => {
     const imagem = await gerarImagemFinal();
@@ -80,7 +118,7 @@ export default function PersonalizarProduto({ produto, voltar }) {
     link.href = imagem;
     link.click();
   };
-  const uploadImagemFinal = async (base64) => {
+  const uploadImagemFinal = async (base64: string) => {
     const formData = new FormData();
 
     formData.append("file", base64);
@@ -98,7 +136,7 @@ export default function PersonalizarProduto({ produto, voltar }) {
 
     return data.secure_url; // 🔥 URL FINAL
   };
-  const formatarPreco = (valor) => {
+  const formatarPreco = (valor: number) => {
     return Number(valor).toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
@@ -113,7 +151,10 @@ export default function PersonalizarProduto({ produto, voltar }) {
       const urlImagem = await uploadImagemFinal(imagemBase64);
 
       const textos = elements
-        .filter((el) => el.type === "text")
+        .filter(
+          (el): el is Extract<CanvasElement, { type: "text" }> =>
+            el.type === "text",
+        )
         .map((el) => el.text)
         .join(", ");
 
@@ -139,7 +180,7 @@ ${urlImagem}`;
   const addTexto = () => {
     const id = Date.now() + Math.random();
 
-    const novo = {
+    const novo: CanvasElement = {
       id,
       type: "text",
       text: "",
@@ -165,7 +206,7 @@ ${urlImagem}`;
   };
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedId) return;
 
       if (e.key === "Delete" || e.key === "Backspace") {
@@ -223,7 +264,11 @@ ${urlImagem}`;
       <div style={{ textAlign: "center", marginBottom: "15px" }}>
         <input
           type="file"
-          onChange={(e) => setFile(e.target.files[0])}
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              setFile(e.target.files[0]);
+            }
+          }}
           style={{
             padding: "10px",
             borderRadius: "8px",
@@ -253,7 +298,7 @@ ${urlImagem}`;
           justifyContent: "center",
         }}
       >
-        {activeElement ? (
+        {activeElement && activeElement.type === "text" ? (
           <>
             {/* 🔠 TAMANHO */}
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -373,7 +418,7 @@ ${urlImagem}`;
             min="0"
             max="360"
             value={rotation}
-            onChange={(e) => setRotation(e.target.value)}
+            onChange={(e) => setRotation(Number(e.target.value))}
             style={{
               width: "100%",
               accentColor: "#2196f3",
@@ -393,7 +438,7 @@ ${urlImagem}`;
             max="2"
             step="0.1"
             value={zoom}
-            onChange={(e) => setZoom(e.target.value)}
+            onChange={(e) => setZoom(Number(e.target.value))}
             style={{
               width: "100%",
               accentColor: "#4caf50",
@@ -509,17 +554,16 @@ ${urlImagem}`;
               position={{ x: el.x, y: el.y }}
               bounds="parent"
               onMouseDown={() => setSelectedId(el.id)}
-              onDragStop={(e, d) => {
+              onDragStop={(_, d) => {
                 let x = d.x;
                 let y = d.y;
 
-                // 🔥 SNAP CENTRO
                 if (Math.abs(x - 90) < 20) x = 90;
                 if (Math.abs(y - 110) < 20) y = 110;
 
                 updateElement(el.id, { x, y });
               }}
-              onResizeStop={(e, dir, ref, delta, pos) => {
+              onResizeStop={(_, __, ref, ___, pos) => {
                 updateElement(el.id, {
                   width: parseInt(ref.style.width),
                   height: parseInt(ref.style.height),
@@ -542,7 +586,9 @@ ${urlImagem}`;
 
               {el.type === "text" && (
                 <div
-                  ref={(elRef) => (textRefs.current[el.id] = elRef)}
+                  ref={(elRef) => {
+                    textRefs.current[el.id] = elRef;
+                  }}
                   contentEditable
                   translate="no"
                   suppressContentEditableWarning
@@ -563,7 +609,7 @@ ${urlImagem}`;
                     color: el.color,
                     fontFamily: el.fontFamily,
                     fontWeight: el.fontWeight,
-                    textAlign: el.textAlign,
+                    textAlign: el.textAlign as React.CSSProperties["textAlign"],
 
                     display: "flex",
                     alignItems: "center",
