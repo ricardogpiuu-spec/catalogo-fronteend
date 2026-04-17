@@ -51,7 +51,8 @@ export default function PersonalizarProduto({ produto, voltar }: Props) {
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const textRefs = useRef<Record<number, HTMLDivElement | null>>({});
- 
+  const [textoMobile, setTextoMobile] = useState("");
+  const inputMobileRef = useRef<HTMLInputElement | null>(null);
   const mockupRef = useRef<HTMLDivElement | null>(null);
   const activeElement =
     elements.find((el) => el.id === selectedId) ||
@@ -597,13 +598,11 @@ ${urlImagem}`;
                     setEditingId(el.id);
 
                     if (window.innerWidth < 768) {
-                      const novoTexto = prompt(
-                        "Digite seu texto:",
-                        el.text || "",
-                      );
-                      if (novoTexto !== null) {
-                        updateElement(el.id, { text: novoTexto });
-                      }
+                      setTextoMobile(el.text);
+
+                      setTimeout(() => {
+                        inputMobileRef.current?.focus();
+                      }, 300);
                     }
                   }}
                   onBlur={(e) => {
@@ -649,6 +648,58 @@ ${urlImagem}`;
 
       <br />
       <br />
+      {editingId !== null && window.innerWidth < 768 && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0",
+            left: "0",
+            width: "100%",
+            background: "#ffffff",
+            padding: "12px",
+            boxShadow: "0 -4px 12px rgba(0,0,0,0.15)",
+            zIndex: 9999,
+            display: "flex",
+            gap: "10px",
+            alignItems: "center",
+          }}
+        >
+          <input
+            ref={inputMobileRef}
+            value={textoMobile}
+            onChange={(e) => {
+              setTextoMobile(e.target.value);
+
+              updateElement(editingId, {
+                text: e.target.value,
+              });
+            }}
+            placeholder="Digite seu texto..."
+            style={{
+              flex: 1,
+              padding: "14px",
+              borderRadius: "10px",
+              border: "1px solid #ddd",
+              fontSize: "16px",
+              outline: "none",
+            }}
+          />
+
+          <button
+            onClick={() => setEditingId(null)}
+            style={{
+              padding: "14px 16px",
+              border: "none",
+              borderRadius: "10px",
+              background: "#2196f3",
+              color: "#fff",
+              fontWeight: "bold",
+            }}
+          >
+            OK
+          </button>
+        </div>
+      )}
       <button
         onClick={enviarWhats}
         style={{
