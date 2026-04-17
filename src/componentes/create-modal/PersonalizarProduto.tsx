@@ -51,7 +51,8 @@ export default function PersonalizarProduto({ produto, voltar }: Props) {
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const textRefs = useRef<Record<number, HTMLDivElement | null>>({});
-
+  const [textoMobile, setTextoMobile] = useState("");
+  const inputMobileRef = useRef<HTMLInputElement | null>(null);
   const mockupRef = useRef<HTMLDivElement | null>(null);
   const activeElement =
     elements.find((el) => el.id === selectedId) ||
@@ -502,7 +503,57 @@ ${urlImagem}`;
             💾 Salvar
           </button>
         </div>
+        {editingId && window.innerWidth < 768 && (
+          <div
+            style={{
+              position: "fixed",
+              bottom: "0",
+              left: "0",
+              width: "100%",
+              background: "#fff",
+              padding: "12px",
+              boxShadow: "0 -3px 10px rgba(0,0,0,0.15)",
+              zIndex: 9999,
+              display: "flex",
+              gap: "10px",
+              alignItems: "center",
+            }}
+          >
+            <input
+              ref={inputMobileRef}
+              value={textoMobile}
+              onChange={(e) => {
+                setTextoMobile(e.target.value);
 
+                updateElement(editingId, {
+                  text: e.target.value,
+                });
+              }}
+              placeholder="Digite seu texto..."
+              style={{
+                flex: 1,
+                padding: "12px",
+                borderRadius: "10px",
+                border: "1px solid #ddd",
+                fontSize: "16px",
+              }}
+            />
+
+            <button
+              onClick={() => setEditingId(null)}
+              style={{
+                padding: "12px 15px",
+                background: "#2196f3",
+                color: "#fff",
+                border: "none",
+                borderRadius: "10px",
+                fontWeight: "bold",
+              }}
+            >
+              OK
+            </button>
+          </div>
+        )}
         {/* 🧱 MOCKUP EDITÁVEL */}
         <div
           ref={mockupRef}
@@ -594,7 +645,15 @@ ${urlImagem}`;
                   suppressContentEditableWarning
                   onFocus={() => {
                     setSelectedId(el.id);
-                    setEditingId(el.id); // 🔥 entrou em edição
+                    setEditingId(el.id);
+
+                    if (window.innerWidth < 768) {
+                      setTextoMobile(el.text);
+
+                      setTimeout(() => {
+                        inputMobileRef.current?.focus();
+                      }, 300);
+                    }
                   }}
                   onBlur={(e) => {
                     setEditingId(null); // 🔥 saiu da edição
