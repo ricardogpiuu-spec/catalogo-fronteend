@@ -199,11 +199,18 @@ ${urlImagem}`;
 
     setElements((prev) => [...prev, novo]);
     setSelectedId(id);
+    setEditingId(id);
+    if (window.innerWidth < 768) {
+      setTextoMobile("");
 
-    // 🔥 espera renderizar e foca
-    setTimeout(() => {
-      textRefs.current[id]?.focus();
-    }, 0);
+      setTimeout(() => {
+        inputMobileRef.current?.focus();
+      }, 400);
+    } else {
+      setTimeout(() => {
+        textRefs.current[id]?.focus();
+      }, 100);
+    }
   };
 
   useEffect(() => {
@@ -590,7 +597,7 @@ ${urlImagem}`;
                   ref={(elRef) => {
                     textRefs.current[el.id] = elRef;
                   }}
-                  contentEditable
+                  contentEditable={window.innerWidth >= 768}
                   translate="no"
                   suppressContentEditableWarning
                   onFocus={() => {
