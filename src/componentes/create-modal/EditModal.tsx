@@ -7,7 +7,7 @@ export function EditModal({ produto, closeModal }: any) {
   const [preco, setPreco] = useState(produto.preco);
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState(produto.imagem);
-
+  const [loading, setLoading] = useState(false);
   const handleFileChange = (e: any) => {
     const selected = e.target.files[0];
     setFile(selected);
@@ -15,37 +15,63 @@ export function EditModal({ produto, closeModal }: any) {
   };
 
   const submit = async () => {
-    const formData = new FormData();
+    try {
+      setLoading(true);
 
-    formData.append("title", title);
-    formData.append("preco", preco.toString());
+      const formData = new FormData();
 
-    if (file) {
-      formData.append("file", file);
+      formData.append("title", title);
+      formData.append("preco", preco.toString());
+
+      if (file) {
+        formData.append("file", file);
+      }
+
+      await fetch(
+        `https://catalogo-backend-9xqq.onrender.com/produtos/${produto.id}`,
+        {
+          method: "PUT",
+          body: formData,
+        },
+      );
+
+      closeModal();
+      window.location.reload();
+    } catch (error) {
+      alert("Erro ao editar produto");
+    } finally {
+      setLoading(false);
     }
-
-    await fetch(`https://catalogo-backend-9xqq.onrender.com/produtos/${produto.id}`, {
-      method: "PUT",
-      body: formData,
-    });
-
-    closeModal();
-    window.location.reload(); // 🔥 atualiza tela
   };
 
   return (
     <div className="modal-overlay" onClick={closeModal}>
       <div className="modal-body" onClick={(e) => e.stopPropagation()}>
-        <h2>Editar Produto</h2>
+        <button className="close-button" onClick={closeModal}>
+          ✖
+        </button>
 
-        <input value={title} onChange={(e) => setTitle(e.target.value)} />
-        <input value={preco} onChange={(e) => setPreco(e.target.value)} />
+        <h2 className="editar-modal">✏️ Editar Produto</h2>
+
+        <input
+          placeholder="Título"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+
+        <input
+          placeholder="Preço"
+          value={preco}
+          onChange={(e) => setPreco(e.target.value)}
+        />
 
         <input type="file" onChange={handleFileChange} />
 
-        {preview && <img src={preview} style={{ width: 120 }} />}
+        {preview && <img src={preview} className="preview-img" />}
 
-        <button onClick={submit}>Editar</button>
+        <button className="editar-produto" onClick={submit} disabled={loading}>
+          {loading ? "⏳ Salvando..." : "🚀 Salvar Alterações"}
+        </button>
       </div>
     </div>
   );

@@ -14,9 +14,9 @@ export function CreateModal({ closeModal }: ModalProps) {
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
 
- const { mutate, status } = useProdutoDataMutate();
+  const { mutate, status } = useProdutoDataMutate();
 
-const isLoading = status === "pending";
+  const isLoading = status === "pending";
 
   const handleFileChange = (e: any) => {
     const selected = e.target.files[0];
@@ -54,7 +54,7 @@ const isLoading = status === "pending";
         <button className="close-btn" onClick={closeModal}>
           ✖
         </button>
-        <h2>Adicionar novo Item</h2>
+        <h2 className="titulo-modal">➕ Adicionar Novo Item</h2>
 
         <input
           placeholder="Título"
@@ -81,10 +81,10 @@ const isLoading = status === "pending";
         <input type="file" onChange={handleFileChange} />
 
         {/* 🔥 preview estilo Shopee */}
-        {preview && <img src={preview} style={{ width: 120 }} />}
+        {preview && <img src={preview} className="preview-img" />}
 
-        <button style={{ background: "red" }} onClick={submit}>
-          {isLoading ? "postando..." : "postar"}
+        <button className="postar" onClick={submit} disabled={isLoading}>
+          {isLoading ? "⏳ Postando..." : "🚀 Postar Produto"}
         </button>
       </div>
     </div>

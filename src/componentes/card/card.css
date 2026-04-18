@@ -179,21 +179,56 @@
   transition: all 0.2s ease;
 }
 
-@media (max-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
 /* TABLET */
 @media (max-width: 1100px) {
   .card-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+  /* CELULAR toque */
+  .card:active {
+    transform: scale(0.97);
+    animation: pulseCard 0.25s ease;
+  }
+  @keyframes pulseCard {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* celular toque */
+  .card:active img {
+    transform: scale(1.08);
   }
 }
 
 @media (max-width: 480px) {
   .card-grid {
     grid-template-columns: 1fr;
+  }
+  /* CELULAR toque */
+  .card:active {
+    transform: scale(0.97);
+    animation: pulseCard 0.25s ease;
+  }
+  @keyframes pulseCard {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* celular toque */
+  .card:active img {
+    transform: scale(1.08);
   }
 }
 /* MOBILE */
@@ -226,6 +261,26 @@
     font-size: 14px;
     padding: 12px;
   }
+  /* CELULAR toque */
+  .card:active {
+    transform: scale(0.97);
+    animation: pulseCard 0.25s ease;
+  }
+  @keyframes pulseCard {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  /* celular toque */
+  .card:active img {
+    transform: scale(1.08);
+  }
 }
 
 /* CELULAR PEQUENO */
@@ -240,6 +295,26 @@
 
   .preco {
     font-size: 18px;
+  }
+  /* CELULAR toque */
+  .card:active {
+    transform: scale(0.97);
+    animation: pulseCard 0.25s ease;
+  }
+  /* celular toque */
+  .card:active img {
+    transform: scale(1.08);
+  }
+  @keyframes pulseCard {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.96);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 }
 

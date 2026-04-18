@@ -99,6 +99,131 @@
   cursor: pointer;
 }
 
+/* BOTÃO POSTAR TOP */
+.postar,
+.editar-produto {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px 18px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: white;
+
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 25px rgba(37, 117, 252, 0.35);
+  transition: all 0.25s ease;
+}
+
+/* hover */
+.postar:hover,
+.editar-produto:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(37, 117, 252, 0.45);
+}
+
+/* click */
+.postar:active,
+.editar-produto:active {
+  transform: scale(0.97);
+}
+
+/* carregando */
+.postar:disabled,
+.editar-produto:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* PREVIEW */
+.preview-img {
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 10px auto;
+  border: 2px solid #eee;
+}
+/* TÍTULO MODAL */
+.titulo-modal,
+.editar-modal {
+  width: 100%;
+  text-align: center;
+
+  font-size: 30px;
+  font-weight: 900;
+  margin: 10px 0 30px;
+  letter-spacing: 1px;
+
+  /* 🔥 degradê rosa premium */
+  background: linear-gradient(90deg, #c2185b, #ff4081, #ff79b0);
+  background-size: 200% auto;
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  /* brilho animado */
+  animation: brilho 3s linear infinite;
+
+  /* sombra leve */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+/* ✨ animação brilho */
+@keyframes brilho {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* linha premium */
+.titulo-modal::after,
+.editar-modal::after {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 4px;
+  background: linear-gradient(90deg, #c2185b, #ff4081);
+  margin: 10px auto 0;
+  border-radius: 10px;
+}
+.titulo-modal:hover,
+.editar-modal:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .postar,
+  .editar-produto {
+    padding: 13px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+  .titulo-modal,
+  .editar-modal {
+    font-size: 24px;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+  }
+
+  .titulo-modal::after,
+  .editar-modal::after {
+    width: 70px;
+  }
+}
+
 @keyframes girarCaneca {
   0% {
     transform: rotateY(0deg) scaleX(1);
