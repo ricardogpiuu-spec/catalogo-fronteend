@@ -81,7 +81,7 @@ Veja a imagem:
       <h2>{title}</h2>
 
       <p>
-        <b className="preco">Valor:</b> R$ {Number(preco).toFixed(2)}
+        <b className="preco">Valor:  </b> <b className="preconumero"> R$ {Number(preco).toFixed(2)}</b>
       </p>
 
       <a

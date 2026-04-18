@@ -48,7 +48,11 @@ function App() {
 
           {isAdmin && isModalOpen && <CreateModal closeModal={closeModal} />}
 
-          {isAdmin && <button onClick={openModal}>Novo</button>}
+          {isAdmin && (
+            <button className="novo" onClick={openModal}>
+              Adicionar Novo item
+            </button>
+          )}
 
           {produtoEdit && (
             <EditModal
