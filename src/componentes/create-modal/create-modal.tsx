@@ -11,6 +11,7 @@ interface ModalProps {
 export function CreateModal({ closeModal }: ModalProps) {
   const [title, setTitle] = useState("");
   const [preco, setPreco] = useState("");
+  const [precoAntigo, setPrecoantigo] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState("");
 
@@ -39,6 +40,7 @@ export function CreateModal({ closeModal }: ModalProps) {
         title,
         preco: Number(preco),
         imageUrl,
+        precoAntigo: Number(precoAntigo),
       },
       {
         onSuccess: () => {
@@ -75,6 +77,21 @@ export function CreateModal({ closeModal }: ModalProps) {
             if (!/^\d*\.?\d*$/.test(value)) return;
 
             setPreco(value);
+          }}
+        />
+        <input
+          placeholder="Preço Antigo"
+          value={precoAntigo}
+          onChange={(e) => {
+            let value = e.target.value;
+
+            // ❌ remove vírgula
+            value = value.replace(",", ".");
+
+            // ❌ permite só números e ponto
+            if (!/^\d*\.?\d*$/.test(value)) return;
+
+            setPrecoantigo(value);
           }}
         />
 

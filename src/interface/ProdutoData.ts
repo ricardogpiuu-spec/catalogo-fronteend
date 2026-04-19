@@ -3,4 +3,5 @@ export interface ProdutoData {
   title: string;
   imagem: string; // igual backend
   preco: number; // igual backend
+  precoAntigo: number; // igual backend
 }

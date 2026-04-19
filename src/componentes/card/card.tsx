@@ -5,6 +5,7 @@ import { useDeleteProduto } from "../../hooks/useDeleteProduto";
 interface CardProps {
   id?: string;
   preco: number;
+  precoAntigo: number;
   title: string;
   imagem: string;
   onEdit?: () => void;
@@ -15,12 +16,18 @@ interface CardProps {
 export function Card({
   id,
   preco,
+  precoAntigo,
   imagem,
   title,
   onEdit,
   isAdmin,
-  onClick,
+  //onClick,
 }: CardProps) {
+  const desconto =
+    precoAntigo && precoAntigo > preco
+      ? Math.round(((precoAntigo - preco) / precoAntigo) * 100)
+      : 0;
+  const estoqueBaixo = true;
   const numero = "5563991111158";
 
   const { mutate: deleteProduto } = useDeleteProduto();
@@ -29,6 +36,7 @@ export function Card({
 
 📦 ${title}
 💰 R$ ${Number(preco).toFixed(2)}
+R$ ${Number(precoAntigo).toFixed(2)}
 
 Veja a imagem:
 
@@ -48,7 +56,9 @@ Veja a imagem:
   };
 
   return (
-    <div className="card" onClick={onClick} style={{ cursor: "pointer" }}>
+    <div className="card">
+      {" "}
+      {/*onClick={onClick}  style={{ cursor: "pointer" }}*/}
       <div className="image-container">
         <img src={imagem} alt={title} />
 
@@ -77,13 +87,27 @@ Veja a imagem:
           </div>
         )}
       </div>
-
       <h2>{title}</h2>
+      <div className="preco-box">
+        {desconto > 0 && <span className="badge-off">-{desconto}% OFF</span>}
+        {desconto > 0 && (
+          <span className="badge-urgente">🔥 Últimas Unidades</span>
+        )}
+       
 
-      <p>
-        <b className="preco">Valor:  </b> <b className="preconumero"> R$ {Number(preco).toFixed(2)}</b>
-      </p>
+        {precoAntigo > preco && (
+          <span className="preco-antigo">
+            De: R$ {Number(precoAntigo).toFixed(2).replace(".", ",")}
+          </span>
+        )}
 
+        <span className="preconumero">
+          Para: R$ {Number(preco).toFixed(2).replace(".", ",")}
+        </span>
+         {desconto > 0 && (
+          <span className="oferta-hoje">⏰ Oferta termina amanhã</span>
+        )}
+      </div>
       <a
         href={whatsappLink}
         target="_blank"
@@ -92,7 +116,6 @@ Veja a imagem:
       >
         <FaWhatsapp /> Comprar agora
       </a>
-
       <p className="info-extra">✔️ Compra segura</p>
       <p className="info-extra">🚚 Enviamos para todo Brasil</p>
     </div>

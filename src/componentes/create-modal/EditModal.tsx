@@ -3,10 +3,14 @@ import { useState } from "react";
 import "./modal.css";
 
 export function EditModal({ produto, closeModal }: any) {
-  const [title, setTitle] = useState(produto.title);
-  const [preco, setPreco] = useState(produto.preco);
+  const [title, setTitle] = useState(produto?.title || "");
+  const [preco, setPreco] = useState(String(produto?.preco || ""));
+  const [precoAntigo, setPrecoAntigo] = useState(
+    String(produto?.precoAntigo || ""),
+  );
+
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState(produto.imagem);
+  const [preview, setPreview] = useState(produto?.imagem || "");
   const [loading, setLoading] = useState(false);
   const handleFileChange = (e: any) => {
     const selected = e.target.files[0];
@@ -21,7 +25,8 @@ export function EditModal({ produto, closeModal }: any) {
       const formData = new FormData();
 
       formData.append("title", title);
-      formData.append("preco", preco.toString());
+      formData.append("preco", preco || "0");
+      formData.append("precoAntigo", precoAntigo || "0");
 
       if (file) {
         formData.append("file", file);
@@ -60,11 +65,15 @@ export function EditModal({ produto, closeModal }: any) {
         />
 
         <input
-          placeholder="Preço"
+          placeholder="Preço Antigo"
+          value={precoAntigo}
+          onChange={(e) => setPrecoAntigo(e.target.value)}
+        />
+        <input
+          placeholder="Preço Novo"
           value={preco}
           onChange={(e) => setPreco(e.target.value)}
         />
-
         <input type="file" onChange={handleFileChange} />
 
         {preview && <img src={preview} className="preview-img" />}

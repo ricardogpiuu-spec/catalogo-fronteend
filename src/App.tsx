@@ -37,6 +37,7 @@ function App() {
                 key={produtoData.id}
                 id={produtoData.id}
                 preco={produtoData.preco}
+                precoAntigo={produtoData.precoAntigo}
                 title={produtoData.title}
                 imagem={produtoData.imagem}
                 onEdit={() => setProdutoEdit(produtoData)}

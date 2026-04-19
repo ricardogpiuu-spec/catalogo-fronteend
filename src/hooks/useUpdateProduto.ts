@@ -12,6 +12,7 @@ export function useUpdateProduto() {
 
       formData.append("title", data.title);
       formData.append("preco", data.preco);
+      formData.append("precoAntigo", data.precoAntigo);
       formData.append("imageUrl", data.imageUrl);
 
       return axios.put(`${API_URL}/produtos/${data.id}`, formData);

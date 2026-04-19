@@ -8,6 +8,7 @@ const API_URL = "https://catalogo-backend-9xqq.onrender.com";
 const postData = async (data: {
   title: string;
   preco: number;
+  precoAntigo: number;
   file?: File;
   imageUrl?: string;
 }): AxiosPromise<any> => {
@@ -15,6 +16,7 @@ const postData = async (data: {
 
   formData.append("title", data.title);
   formData.append("preco", data.preco.toString());
+  formData.append("precoAntigo", data.precoAntigo.toString());
 
   if (data.file) {
     formData.append("file", data.file);
@@ -38,7 +40,7 @@ export function useProdutoDataMutate() {
     mutationFn: postData,
     retry: 2,
     onSuccess: () => {
-     queryClient.invalidateQueries({ queryKey: ["produto-data"] });
+      queryClient.invalidateQueries({ queryKey: ["produto-data"] });
     },
   });
 }
