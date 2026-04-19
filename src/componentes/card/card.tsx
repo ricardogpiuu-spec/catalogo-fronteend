@@ -27,7 +27,7 @@ export function Card({
     precoAntigo && precoAntigo > preco
       ? Math.round(((precoAntigo - preco) / precoAntigo) * 100)
       : 0;
-  const estoqueBaixo = true;
+  //const estoqueBaixo = true;
   const numero = "5563991111158";
 
   const { mutate: deleteProduto } = useDeleteProduto();
