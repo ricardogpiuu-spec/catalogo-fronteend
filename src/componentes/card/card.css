@@ -1,16 +1,22 @@
 .card {
-    background: #fff;
-  border-radius: 22px;
+  background: #fff;
+  border-radius: 18px;
   overflow: hidden;
-  padding: 16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.10);
-  transition: all .25s ease;
+  padding: 12px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+  transition: all 0.25s ease;
   position: relative;
-   min-height: 520px;   /* tamanho padrão */
-  height: auto;        /* pode crescer se precisar */
-   display: flex;
+  width: 100%;
+  max-width: 230px;
+  margin: 0 auto;
+  height: auto;
+
+  border: 1px solid #f1f1f1;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 420px; /* padrão todos iguais */
+  transition: 0.25s ease;
 }
 /* brilho premium */
 .card::before {
@@ -38,10 +44,11 @@
 }
 /* GRID PRODUTOS */
 .card-grid {
-   display: grid;
+  display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 22px;
+  gap: 14px;
   align-items: start; /* IMPORTANTE */
+  padding: 14px;
 }
 .image-container {
   position: relative;
@@ -58,12 +65,12 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
- border-radius: 18px;
+  border-radius: 18px;
   transition: transform 0.35s ease;
 }
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 18px 38px rgba(0,0,0,.16);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
 }
 .card:hover .image-container img {
   transform: scale(1.05);
@@ -92,13 +99,17 @@
   font-weight: bold;
 }
 .card h2 {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 800;
   color: #222;
   text-align: center;
-   margin: 12px 0;
+  margin: 10px 0 8px;
   min-height: 25px;
-  
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .preco {
   font-size: 22px;
@@ -152,7 +163,6 @@
   color: #777;
   text-align: center;
   margin-bottom: 4px;
-  
 }
 /* BOTÕES ADMIN */
 .btn-delete-overlay,
@@ -263,18 +273,16 @@
 /* MOBILE */
 @media (max-width: 768px) {
   .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
-    padding: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 18px;
   }
 
   .card {
-    max-width: 100%;
-    border-radius: 14px;
+    max-width: 260px;
   }
 
   .image-container {
-    height: 170px;
+    height: 220px;
   }
 
   .card h2 {
@@ -315,8 +323,22 @@
 
 /* CELULAR PEQUENO */
 @media (max-width: 420px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 10px;
+  }
+  .card {
+    max-width: 100%;
+    padding: 10px;
+    min-height: 390px;
+  }
+  .card.promocao {
+    min-height: 470px;
+  }
+
   .image-container {
-    height: 160px;
+    height: 145px;
   }
 
   .card h2 {
@@ -335,6 +357,15 @@
   /* celular toque */
   .card:active img {
     transform: scale(1.08);
+  }
+  .preconumero,
+  .preco-normal {
+    font-size: 20px;
+  }
+
+  .btn-whatsapp {
+    font-size: 14px;
+    padding: 10px;
   }
   @keyframes pulseCard {
     0% {
@@ -364,7 +395,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   min-height: 120px;
 }
 /* badge desconto */
@@ -372,37 +403,39 @@
   background: linear-gradient(45deg, #ff0000, #ff5e00);
   display: inline-block;
   color: white;
-  padding: 7px 12px;
-  border-radius: 999px;
-  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 10px;
+  font-size: 12px;
   font-weight: 800;
-   margin-bottom: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
   animation: pulseBadge 1s infinite;
 }
 /* urgência */
 .badge-urgente {
   background: #111;
   color: #ffd700;
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-size: 18px;
+  padding: 7px 10px;
+  border-radius: 12px;
+  font-size: 13px;
   font-weight: 800;
-   margin-bottom: 10px;
+  margin-bottom: 10px;
+  text-align: center;
   animation: piscar 1.3s infinite;
-   display: inline-block;
-    box-shadow: 0 8px 18px rgba(255,90,0,.35);
+  display: inline-block;
+  box-shadow: 0 8px 18px rgba(255, 90, 0, 0.35);
 }
 
 .preco-antigo {
   color: #e90606;
   display: block;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 900;
   text-decoration: line-through;
   margin-top: 6px;
 }
 .oferta-hoje {
-  font-size: 12px;
+  font-size: 13px;
   color: #ff0000;
   font-weight: bold;
 }
@@ -459,7 +492,7 @@
 }
 
 .preconumero.promo {
-   display: block;
+  display: block;
   font-size: 25px;
   font-weight: 900;
   color: #16a34a;
@@ -467,7 +500,7 @@
   animation: brilhoPreco 1.6s infinite alternate;
 }
 .preco-normal {
-   display: block;
+  display: block;
   font-size: 25px;
   font-weight: 900;
   color: #16a34a;
@@ -515,4 +548,6 @@
   animation: piscaOferta 1s infinite;
   font-size: 18px;
 }
-
+.card.promocao {
+  min-height: 500px;
+}
