@@ -1,23 +1,37 @@
+/* ===========================
+   CARD.CSS PROFISSIONAL 2026
+=========================== */
+
+/* GRID */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  padding: 14px;
+  align-items: start;
+}
+
+/* CARD */
 .card {
   background: #fff;
   border-radius: 18px;
-  overflow: hidden;
   padding: 12px;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-  transition: all 0.25s ease;
-  position: relative;
-  width: 100%;
-  max-width: 230px;
-  margin: 0 auto;
-  height: auto;
-
   border: 1px solid #f1f1f1;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+
+  width: 100%;
+  max-width: 240px;
+  margin: 0 auto;
+
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 420px; /* padrão todos iguais */
-  transition: 0.25s ease;
+  min-height: 430px;
+
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
 }
+
 /* brilho premium */
 .card::before {
   content: "";
@@ -26,148 +40,159 @@
   left: -130%;
   width: 60%;
   height: 100%;
-
   background: linear-gradient(
     120deg,
     transparent,
     rgba(255, 255, 255, 0.45),
     transparent
   );
-
   transition: 0.7s;
-  z-index: 2;
 }
 
-/* PC */
 .card:hover::before {
   left: 150%;
 }
-/* GRID PRODUTOS */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 14px;
-  align-items: start; /* IMPORTANTE */
-  padding: 14px;
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
 }
+
+/* PROMOÇÃO */
+.card.promocao {
+  min-height: 520px;
+}
+
+/* IMAGEM */
 .image-container {
   position: relative;
   width: 100%;
-  height: 260px;
-  background: linear-gradient(to bottom, #f8f8f8, #ffffff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 220px;
+  border-radius: 16px;
   overflow: hidden;
+  background: #f8f8f8;
 }
 
 .image-container img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 18px;
-  transition: transform 0.35s ease;
+  transition: 0.3s ease;
 }
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
-}
-.card:hover .image-container img {
+
+.card:hover img {
   transform: scale(1.05);
 }
-.card:hover img,
-.card:active img {
-  transform: scale(1.08);
-}
-.title-link {
-  color: #000;
-  cursor: pointer;
-  text-align: center;
-  margin: 0;
-  text-decoration: none;
-}
 
-.title-link:hover {
-  color: #25d366; /* verde WhatsApp */
-  text-decoration: underline;
-}
-
-.whatsapp-text {
-  margin: 4px 0;
-  font-size: 14px;
-  color: #25d366;
-  font-weight: bold;
-}
+/* TITULO */
 .card h2 {
   font-size: 16px;
   font-weight: 800;
   color: #222;
   text-align: center;
-  margin: 10px 0 8px;
-  min-height: 25px;
+  margin: 10px 0;
   line-height: 1.3;
+
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-.preco {
-  font-size: 22px;
-  font-weight: 800;
-  color: #16a34a;
-  margin-bottom: 6px;
-}
-.preconumero {
-  font-size: 22px;
-  color: #0b080e;
-  font-weight: bold;
-  margin-bottom: 6px;
+
+  min-height: 42px;
 }
 
-.card p {
-  margin: 2px 0;
+/* PREÇOS */
+.preco-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.preco-antigo {
+  color: #ff0000;
   font-size: 14px;
-
-  text-align: center;
+  font-weight: 800;
+  text-decoration: line-through;
 }
-/* 🔥 BOTÃO WHATSAPP TOP */
+
+.preconumero.promo,
+.preco-normal {
+  font-size: 26px;
+  font-weight: 900;
+  color: #16a34a;
+}
+
+.badge-off {
+  background: linear-gradient(45deg, #ff0000, #ff5e00);
+  color: white;
+  padding: 4px 9px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 800;
+  animation: pulseBadge 1s infinite;
+}
+
+/* BADGE PRINCIPAL */
+.badge-urgente {
+  background: #111;
+  color: #ffd700;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 900;
+  text-align: center;
+  animation: piscar 1.2s infinite;
+  box-shadow: 0 8px 18px rgba(255, 90, 0, 0.35);
+}
+
+/* TEXTO OFERTA */
+.oferta-hoje {
+  font-size: 14px;
+  font-weight: 800;
+  color: #ff3d00;
+  text-align: center;
+  animation: piscar 1s infinite;
+}
+
+/* WHATSAPP */
 .btn-whatsapp {
-  margin: 14px auto 10px;
-  width: 92%;
-  padding: 14px;
+  margin-top: 10px;
+  width: 85%;
+  padding: 13px;
   border-radius: 12px;
   text-decoration: none;
   color: white;
-  font-weight: bold;
-  font-size: 16px;
-  background: linear-gradient(45deg, #25d366, #13b955);
-  transition: all 0.25s ease;
+  font-weight: 800;
+  font-size: 15px;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
+
+  background: linear-gradient(45deg, #25d366, #13b955);
+  transition: 0.25s ease;
+  animation: pulseBtn 1.3s infinite;
 }
 
-/* efeito hover */
 .btn-whatsapp:hover {
   transform: translateY(-2px);
-  background: linear-gradient(45deg, #1ebe5d, #159c4a);
 }
 
-/* efeito clique */
-.btn-whatsapp:active {
-  transform: scale(0.96);
-}
+/* INFO */
 .info-extra {
+  text-align: center;
   font-size: 12px;
   color: #777;
-  text-align: center;
-  margin-bottom: 4px;
+  margin-top: 5px;
 }
+
 /* BOTÕES ADMIN */
 .btn-delete-overlay,
 .btn-edit {
   position: absolute;
+  top: 10px;
   width: 34px;
   height: 34px;
   border: none;
@@ -178,26 +203,15 @@
   transform: scale(0.8);
   transition: 0.2s;
 }
+
 .btn-delete-overlay {
-  top: 10px;
   right: 10px;
   background: rgba(220, 38, 38, 0.9);
 }
+
 .btn-edit {
-  top: 10px;
   left: 10px;
   background: rgba(37, 99, 235, 0.9);
-}
-/* ícone sempre visível (quando aparece) */
-.btn-delete-overlay .icon {
-  font-size: 12px;
-}
-.btn-delete-overlay .text {
-  max-width: 0;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: max-width 0.2s ease;
-  font-size: 12px;
 }
 
 .image-container:hover .btn-delete-overlay,
@@ -205,257 +219,14 @@
   opacity: 1;
   transform: scale(1);
 }
-/* 🔥 expande texto ao passar mouse */
-.btn-delete-overlay:hover .text {
-  max-width: 80px;
-}
 
-/* efeito hover no botão */
-.btn-delete-overlay:hover {
-  background: darkred;
-  transition: all 0.2s ease;
-}
-
-/* TABLET */
-@media (max-width: 1100px) {
-  .card-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  /* CELULAR toque */
-  .card:active {
-    transform: scale(0.97);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
-    animation: pulseCard 0.25s ease;
-  }
-  @keyframes pulseCard {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.96);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  /* celular toque */
-  .card:active img {
-    transform: scale(1.08);
-  }
-}
-
-@media (max-width: 480px) {
-  .card-grid {
-    grid-template-columns: 1fr;
-  }
-  /* CELULAR toque */
-  .card:active {
-    transform: scale(0.97);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
-    animation: pulseCard 0.25s ease;
-  }
-  @keyframes pulseCard {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.96);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  /* celular toque */
-  .card:active img {
-    transform: scale(1.08);
-  }
-}
-/* MOBILE */
-@media (max-width: 768px) {
-  .card-grid {
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 18px;
-  }
-
-  .card {
-    max-width: 260px;
-  }
-
-  .image-container {
-    height: 220px;
-  }
-
-  .card h2 {
-    font-size: 15px;
-    min-height: 42px;
-  }
-
-  .preco {
-    font-size: 20px;
-  }
-
-  .btn-whatsapp {
-    font-size: 14px;
-    padding: 11px;
-  }
-  /* CELULAR toque */
-  .card:active {
-    transform: scale(0.97);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
-    animation: pulseCard 0.25s ease;
-  }
-  @keyframes pulseCard {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.96);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  /* celular toque */
-  .card:active img {
-    transform: scale(1.08);
-  }
-}
-
-/* CELULAR PEQUENO */
-@media (max-width: 420px) {
-  .card-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 10px;
-  }
-  .card {
-    max-width: 100%;
-    padding: 10px;
-    min-height: 390px;
-  }
-  .card.promocao {
-    min-height: 470px;
-  }
-
-  .image-container {
-    height: 145px;
-  }
-
-  .card h2 {
-    font-size: 14px;
-  }
-
-  .preco {
-    font-size: 18px;
-  }
-  /* CELULAR toque */
-  .card:active {
-    transform: scale(0.97);
-    box-shadow: 0 12px 22px rgba(0, 0, 0, 0.18);
-    animation: pulseCard 0.25s ease;
-  }
-  /* celular toque */
-  .card:active img {
-    transform: scale(1.08);
-  }
-  .preconumero,
-  .preco-normal {
-    font-size: 20px;
-  }
-
-  .btn-whatsapp {
-    font-size: 14px;
-    padding: 10px;
-  }
-  @keyframes pulseCard {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(0.96);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-}
-
-/* 🔥 estilo padrão dos botões */
-
-.btn-edit:hover {
-  background: rgb(71, 6, 124);
-  transition: all 0.2s ease;
-}
-
-/* hover */
-.actions button:hover {
-  transform: scale(1.1);
-}
-.preco-box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  min-height: 120px;
-}
-/* badge desconto */
-.badge-off {
-  background: linear-gradient(45deg, #ff0000, #ff5e00);
-  display: inline-block;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 10px;
-  font-size: 12px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  width: fit-content;
-  animation: pulseBadge 1s infinite;
-}
-/* urgência */
-.badge-urgente {
-  background: #111;
-  color: #ffd700;
-  padding: 7px 10px;
-  border-radius: 12px;
-  font-size: 13px;
-  font-weight: 800;
-  margin-bottom: 10px;
-  text-align: center;
-  animation: piscar 1.3s infinite;
-  display: inline-block;
-  box-shadow: 0 8px 18px rgba(255, 90, 0, 0.35);
-}
-
-.preco-antigo {
-  color: #e90606;
-  display: block;
-  font-size: 14px;
-  font-weight: 900;
-  text-decoration: line-through;
-  margin-top: 6px;
-}
-.oferta-hoje {
-  font-size: 13px;
-  color: #ff0000;
-  font-weight: bold;
-}
-/* botão whatsapp */
-.btn-whatsapp {
-  animation: pulseBtn 1.2s infinite;
-}
-
-.preconumero {
-  color: #0f0f0f;
-  font-size: 22px;
-  font-weight: 900;
-}
-/* animações */
-@keyframes pulse {
+/* ANIMAÇÕES */
+@keyframes pulseBadge {
   0% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
   100% {
     transform: scale(1);
@@ -467,7 +238,7 @@
     transform: scale(1);
   }
   50% {
-    transform: scale(1.03);
+    transform: scale(1.02);
   }
   100% {
     transform: scale(1);
@@ -479,75 +250,49 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.4;
+    opacity: 0.45;
   }
   100% {
     opacity: 1;
   }
 }
-.preconumero.normal {
-  color: #16a34a;
-  font-size: 28px;
-  font-weight: 900;
+
+/* TABLET */
+@media (max-width: 768px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    max-width: 100%;
+  }
+
+  .image-container {
+    height: 180px;
+  }
+
+  .preco-normal,
+  .preconumero.promo {
+    font-size: 22px;
+  }
 }
 
-.preconumero.promo {
-  display: block;
-  font-size: 25px;
-  font-weight: 900;
-  color: #16a34a;
-  margin-top: 4px;
-  animation: brilhoPreco 1.6s infinite alternate;
-}
-.preco-normal {
-  display: block;
-  font-size: 25px;
-  font-weight: 900;
-  color: #16a34a;
-  text-decoration: none;
-}
-.box-promocao {
-  display: flex;
-  gap: 10px;
-  margin: 10px 0;
-}
+/* CELULAR PEQUENO */
+@media (max-width: 420px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
 
-.btn-ativar {
-  background: #16a34a;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
+  .card {
+    min-height: auto;
+  }
 
-.btn-remover {
-  background: #dc2626;
-  color: #fff;
-  border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-  width: 100%;
-}
-.modal-body input[readonly] {
-  background: #f8f8f8;
-  color: #222;
-  cursor: not-allowed;
-  font-weight: 700;
-}
-/* texto oferta */
-.oferta-hoje {
-  display: block;
-  margin-top: 10px;
-  color: #ff3d00;
-  font-weight: 800;
-  animation: piscaOferta 1s infinite;
-  font-size: 18px;
-}
-.card.promocao {
-  min-height: 500px;
+  .image-container {
+    height: 170px;
+  }
+
+  .btn-whatsapp {
+    font-size: 14px;
+    padding: 11px;
+  }
 }
