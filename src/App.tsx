@@ -40,6 +40,8 @@ function App() {
                 precoAntigo={produtoData.precoAntigo}
                 title={produtoData.title}
                 imagem={produtoData.imagem}
+                badge={produtoData.badge}
+                textoOferta={produtoData.textoOferta}
                 onEdit={() => setProdutoEdit(produtoData)}
                 isAdmin={isAdmin}
                 onClick={() => setProdutoSelecionado(produtoData)}

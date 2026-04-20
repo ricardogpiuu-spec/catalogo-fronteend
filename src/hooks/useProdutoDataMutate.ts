@@ -11,12 +11,17 @@ const postData = async (data: {
   precoAntigo: number;
   file?: File;
   imageUrl?: string;
+  badge:string;
+  textoOferta:string;
+  
 }): AxiosPromise<any> => {
   const formData = new FormData();
 
   formData.append("title", data.title);
   formData.append("preco", data.preco.toString());
   formData.append("precoAntigo", data.precoAntigo.toString());
+  formData.append("badge", data.badge);
+  formData.append("textoOferta", data.textoOferta);
 
   if (data.file) {
     formData.append("file", data.file);

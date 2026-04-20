@@ -8,6 +8,8 @@ interface CardProps {
   precoAntigo: number;
   title: string;
   imagem: string;
+  badge?: string;
+  textoOferta?:string;
   onEdit?: () => void;
   isAdmin?: boolean; // 🔥 NOVO
   onClick?: () => void; // 🔥 ADICIONA
@@ -19,6 +21,8 @@ export function Card({
   precoAntigo,
   imagem,
   title,
+  badge,
+  textoOferta,
   onEdit,
   isAdmin,
   //onClick,
@@ -37,7 +41,8 @@ export function Card({
 📦 ${title}
 💰 R$ ${Number(preco).toFixed(2)}
 R$ ${Number(precoAntigo).toFixed(2)}
-
+${badge ? badge + "\n" : ""}
+${textoOferta ? textoOferta + "\n" : ""}
 Veja a imagem:
 
 📸 ${imagem}`;
@@ -88,26 +93,42 @@ Veja a imagem:
         )}
       </div>
       <h2>{title}</h2>
-      <div className="preco-box">
-        {desconto > 0 && <span className="badge-off">-{desconto}% OFF</span>}
-        {desconto > 0 && (
-          <span className="badge-urgente">🔥 Últimas Unidades</span>
-        )}
-       
+   <div className="preco-box">
 
-        {precoAntigo > preco && (
-          <span className="preco-antigo">
-            De: R$ {Number(precoAntigo).toFixed(2).replace(".", ",")}
-          </span>
-        )}
+  {badge && (
+    <span className="badge-urgente">
+      {badge}
+    </span>
+  )}
 
-        <span className="preconumero">
-          Para: R$ {Number(preco).toFixed(2).replace(".", ",")}
-        </span>
-         {desconto > 0 && (
-          <span className="oferta-hoje">⏰ Oferta termina amanhã</span>
-        )}
-      </div>
+  {precoAntigo > preco ? (
+    <>
+      <span className="badge-off">
+        -{desconto}% OFF
+      </span>
+
+      <span className="preco-antigo">
+        De: R$ {Number(precoAntigo).toFixed(2).replace(".", ",")}
+      </span>
+
+      <span className="preconumero promo">
+        Para: R$ {Number(preco).toFixed(2).replace(".", ",")}
+      </span>
+    </>
+  ) : (
+    <span className="preco-normal">
+      Valor: R$ {Number(preco).toFixed(2).replace(".", ",")}
+    </span>
+  )}
+
+  {textoOferta && (
+    <span className="oferta-hoje">
+      {textoOferta}
+    </span>
+  )}
+
+</div>
+
       <a
         href={whatsappLink}
         target="_blank"
