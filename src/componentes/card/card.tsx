@@ -7,7 +7,7 @@ interface CardProps {
   preco: number;
   precoAntigo: number;
   title: string;
-  imagem: string;
+  imagens: any;
   badge?: string;
   textoOferta?:string;
   onEdit?: () => void;
@@ -19,7 +19,7 @@ export function Card({
   id,
   preco,
   precoAntigo,
-  imagem,
+  imagens,
   title,
   badge,
   textoOferta,
@@ -35,6 +35,9 @@ export function Card({
   const numero = "5563991111158";
 
   const { mutate: deleteProduto } = useDeleteProduto();
+    const imagemPrincipal = Array.isArray(imagens)
+    ? imagens[0]
+    : imagens;
 
   const mensagem = `Olá! Quero comprar este produto 👇
 
@@ -45,7 +48,7 @@ ${badge ? badge + "\n" : ""}
 ${textoOferta ? textoOferta + "\n" : ""}
 Veja a imagem:
 
-📸 ${imagem}`;
+📸 ${imagens}`;
 
   const whatsappLink = `https://api.whatsapp.com/send?phone=${numero}&text=${encodeURIComponent(mensagem)}`;
 
@@ -65,8 +68,11 @@ Veja a imagem:
       {" "}
       {/*onClick={onClick}  style={{ cursor: "pointer" }}*/}
       <div className="image-container">
-      <img src={imagem} alt={title} loading="lazy" />
-
+         <img
+          src={imagemPrincipal}
+          alt={title}
+          loading="lazy"
+        />
         {/* 🔥 container dos botões */}
         {isAdmin && (
           <div className="actions">

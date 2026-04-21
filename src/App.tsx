@@ -11,8 +11,8 @@ import PersonalizarProdutoimagem from "./componentes/create-modal/PersonalizarPr
 function App() {
   const { data, isLoading, error } = useProdutoData();
   //const [produtoSelecionadoimagem, setProdutoSelecionadoimagem] = useState(null);
-const [busca, setBusca] = useState("");
-const [categoria, setCategoria] = useState("Todos");
+  const [busca, setBusca] = useState("");
+  const [categoria, setCategoria] = useState("Todos");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [produtoEdit, setProdutoEdit] = useState<ProdutoData | null>(null);
   const [produtoSelecionado, setProdutoSelecionado] =
@@ -25,20 +25,20 @@ const [categoria, setCategoria] = useState("Todos");
   const closeModal = () => setIsModalOpen(false);
 
   const produtosFiltrados = data?.filter((produto: ProdutoData) => {
-  const nome = produto.title.toLowerCase();
-  const buscaTexto = busca.toLowerCase();
+    const nome = produto.title.toLowerCase();
+    const buscaTexto = busca.toLowerCase();
 
-  const bateBusca = nome.includes(buscaTexto);
+    const bateBusca = nome.includes(buscaTexto);
 
-  const bateCategoria =
-    categoria === "Todos"
-      ? true
-      : categoria === "Promoções"
-      ? produto.precoAntigo > produto.preco
-      : nome.includes(categoria.toLowerCase());
+    const bateCategoria =
+      categoria === "Todos"
+        ? true
+        : categoria === "Promoções"
+          ? produto.precoAntigo > produto.preco
+          : nome.includes(categoria.toLowerCase());
 
-  return bateBusca && bateCategoria;
-});
+    return bateBusca && bateCategoria;
+  });
 
   useEffect(() => {
     fetch("https://catalogo-backend-9xqq.onrender.com/produtos");
@@ -62,12 +62,10 @@ const [categoria, setCategoria] = useState("Todos");
             <span className="hero-badge">✨ Personalizados Exclusivos</span>
 
             <img
-    src="/logo-camila.jpeg"
-    alt="Camila Personalizados"
-    className="logo-topo"
-  />
-
-           
+              src="/logo-camila.jpeg"
+              alt="Camila Personalizados"
+              className="logo-topo"
+            />
 
             <a
               href="https://api.whatsapp.com/send?phone=5563991111158"
@@ -82,26 +80,25 @@ const [categoria, setCategoria] = useState("Todos");
           <section className="banner-home">
             ✨ Produtos personalizados com amor 💖
           </section>
-           
 
           <section className="hero-top">
             <input
-  type="text"
-  placeholder="🔍 Buscar produto..."
-  className="buscar"
-  value={busca}
-  onChange={(e) => setBusca(e.target.value)}
-/>
+              type="text"
+              placeholder="🔍 Buscar produto..."
+              className="buscar"
+              value={busca}
+              onChange={(e) => setBusca(e.target.value)}
+            />
 
             <div className="categorias">
-  <button onClick={() => setCategoria("Todos")}>Todos</button>
-  <button onClick={() => setCategoria("Caneca")}>Canecas</button>
-  <button onClick={() => setCategoria("Copo")}>Copos</button>
-  <button onClick={() => setCategoria("Kit")}>Kits</button>
-  <button onClick={() => setCategoria("Promoções")}>
-    Promoções
-  </button>
-</div>
+              <button onClick={() => setCategoria("Todos")}>Todos</button>
+              <button onClick={() => setCategoria("Caneca")}>Canecas</button>
+              <button onClick={() => setCategoria("Copo")}>Copos</button>
+              <button onClick={() => setCategoria("Kit")}>Kits</button>
+              <button onClick={() => setCategoria("Promoções")}>
+                Promoções
+              </button>
+            </div>
 
             <div className="banner-rotativo">
               🔥 Promoção termina hoje às 23:59
@@ -122,7 +119,7 @@ const [categoria, setCategoria] = useState("Todos");
                 preco={produtoData.preco}
                 precoAntigo={produtoData.precoAntigo}
                 title={produtoData.title}
-                imagem={produtoData.imagem}
+                imagens={produtoData.imagens}
                 badge={produtoData.badge}
                 textoOferta={produtoData.textoOferta}
                 onEdit={() => setProdutoEdit(produtoData)}

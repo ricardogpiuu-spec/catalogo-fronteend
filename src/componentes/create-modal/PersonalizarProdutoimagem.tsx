@@ -8,7 +8,7 @@ interface Props {
 }
 
 export default function PersonalizarProdutoimagem({ produto, voltar }: Props) {
-  const [imagemAtual, setImagemAtual] = useState(produto.imagem);
+  const [imagemAtual, setImagemAtual] = useState(produto.imagens?.[0]);
 
   const numero = "5563991111158";
 
@@ -33,18 +33,14 @@ R$ ${produto.preco}`;
           <img src={imagemAtual} className="imagem-principal" />
 
           <div className="miniaturas">
-            <img
-              src={produto.imagem}
-              onClick={() => setImagemAtual(produto.imagem)}
-            />
-            <img
-              src={produto.imagem}
-              onClick={() => setImagemAtual(produto.imagem)}
-            />
-            <img
-              src={produto.imagem}
-              onClick={() => setImagemAtual(produto.imagem)}
-            />
+            {produto.imagens?.map((img: string, index: number) => (
+              <img
+                key={index}
+                src={img}
+                onClick={() => setImagemAtual(img)}
+                className={imagemAtual === img ? "miniativa" : ""}
+              />
+            ))}
           </div>
         </div>
 
@@ -85,6 +81,7 @@ R$ ${produto.preco}`;
             <p>
               <FaTruck /> Entrega rápida
             </p>
+
             <p>
               <FaShieldAlt /> Compra segura
             </p>

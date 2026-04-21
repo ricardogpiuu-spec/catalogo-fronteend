@@ -1,7 +1,7 @@
 export interface ProdutoData {
   id?: string; // Mongo é string
   title: string;
-  imagem: string; // igual backend
+   imagens: string[]; // igual backend
   preco: number; // igual backend
   precoAntigo: number; // igual backend
   badge: string;

@@ -40,16 +40,29 @@
 .miniaturas {
   display: flex;
   gap: 10px;
-  margin-top: 14px;
+  margin-top: 15px;
 }
 
 .miniaturas img {
-  width: 70px;
-  height: 70px;
-  border-radius: 12px;
-  cursor: pointer;
-  object-fit: cover;
-  border: 2px solid #eee;
+    width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:10px;
+  cursor:pointer;
+  border:2px solid transparent;
+  transition:0.2s;
+}
+.miniaturas img:hover{
+  transform:scale(1.05);
+}
+
+.miniativa{
+  border:2px solid #ff4da6 !important;
+}
+.imagem-principal{
+  width:100%;
+  max-width:420px;
+  border-radius:16px;
 }
 
 .badge-top {

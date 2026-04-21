@@ -18,7 +18,7 @@ export function EditModal({ produto, closeModal }: any) {
   const [promocaoAtiva, setPromocaoAtiva] = useState(temPromocao);
 
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState(produto?.imagem || "");
+  const [preview, setPreview] = useState(produto?.imagens?.[0] || "");
   const [loading, setLoading] = useState(false);
 
   const [badge, setBadge] = useState("");
@@ -39,7 +39,7 @@ export function EditModal({ produto, closeModal }: any) {
       formData.append("title", title);
       formData.append("preco", preco);
       formData.append("badge", badge);
-formData.append("textoOferta", textoOferta);
+      formData.append("textoOferta", textoOferta);
 
       if (promocaoAtiva) {
         formData.append("precoAntigo", precoAntigo);
@@ -136,25 +136,25 @@ formData.append("textoOferta", textoOferta);
           )}
         </div>
         <select value={badge} onChange={(e) => setBadge(e.target.value)}>
-  <option value="">Selecione Badge</option>
-  <option value="🔥 Últimas Unidades">🔥 Últimas Unidades</option>
-  <option value="⚡ Promoção Relâmpago">⚡ Promoção Relâmpago</option>
-  <option value="🚚 Frete Grátis Hoje">🚚 Frete Grátis Hoje</option>
-  <option value="💥 Oferta Especial">💥 Oferta Especial</option>
-  <option value="⭐ Mais Vendido">⭐ Mais Vendido</option>
-</select>
+          <option value="">Selecione Badge</option>
+          <option value="🔥 Últimas Unidades">🔥 Últimas Unidades</option>
+          <option value="⚡ Promoção Relâmpago">⚡ Promoção Relâmpago</option>
+          <option value="🚚 Frete Grátis Hoje">🚚 Frete Grátis Hoje</option>
+          <option value="💥 Oferta Especial">💥 Oferta Especial</option>
+          <option value="⭐ Mais Vendido">⭐ Mais Vendido</option>
+        </select>
 
-<select
-  value={textoOferta}
-  onChange={(e) => setTextoOferta(e.target.value)}
->
-  <option value="">Selecione Texto Oferta</option>
-  <option value="⏰ Oferta termina hoje">⏰ Oferta termina hoje</option>
-  <option value="🚀 Aproveite agora">🚀 Aproveite agora</option>
-  <option value="📦 Envio imediato">📦 Envio imediato</option>
-  <option value="💎 Edição limitada">💎 Edição limitada</option>
-  <option value="🔒 Compra Segura">🔒 Compra Segura</option>
-</select>
+        <select
+          value={textoOferta}
+          onChange={(e) => setTextoOferta(e.target.value)}
+        >
+          <option value="">Selecione Texto Oferta</option>
+          <option value="⏰ Oferta termina hoje">⏰ Oferta termina hoje</option>
+          <option value="🚀 Aproveite agora">🚀 Aproveite agora</option>
+          <option value="📦 Envio imediato">📦 Envio imediato</option>
+          <option value="💎 Edição limitada">💎 Edição limitada</option>
+          <option value="🔒 Compra Segura">🔒 Compra Segura</option>
+        </select>
 
         <input type="file" onChange={handleFileChange} />
 
