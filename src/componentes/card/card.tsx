@@ -65,7 +65,7 @@ Veja a imagem:
       {" "}
       {/*onClick={onClick}  style={{ cursor: "pointer" }}*/}
       <div className="image-container">
-        <img src={imagem} alt={title} />
+      <img src={imagem} alt={title} loading="lazy" />
 
         {/* 🔥 container dos botões */}
         {isAdmin && (

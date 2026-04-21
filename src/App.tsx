@@ -1,5 +1,5 @@
 // App.tsx
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import { Card } from "./componentes/card/card";
 import { useProdutoData } from "./hooks/useProdutoData";
@@ -22,7 +22,18 @@ function App() {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  if (isLoading) return <p>Carregando...</p>;
+  useEffect(() => {
+  fetch("https://catalogo-backend-9xqq.onrender.com/produtos");
+}, []);
+
+ if (isLoading) {
+  return (
+    <div className="loading-page">
+      <div className="spinner"></div>
+      <h2>Carregando Catálogo...</h2>
+    </div>
+  );
+}
   if (error) return <p>Erro ao carregar</p>;
 
   return (

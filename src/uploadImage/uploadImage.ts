@@ -1,18 +1,23 @@
 export async function uploadImage(file: File) {
-  const data = new FormData();
-  data.append("file", file);
-  data.append("upload_preset", "card_produto");
-  data.append("cloud_name", "dyvec4jx4");
+  const formData = new FormData();
+  formData.append("file", file);
+  formData.append("upload_preset", "card_produto");
+  formData.append("cloud_name", "dyvec4jx4");
 
   const res = await fetch(
     "https://api.cloudinary.com/v1_1/dyvec4jx4/image/upload",
     {
       method: "POST",
-      body: data,
-    }
+      body: formData,
+    },
   );
 
-  const json = await res.json();
+  const data = await res.json();
 
-  return json.secure_url; // 🔥 URL da imagem
+  const urlOtimizada = data.secure_url.replace(
+    "/upload/",
+    "/upload/f_auto,q_auto,w_500/",
+  );
+
+  return urlOtimizada;
 }
