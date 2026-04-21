@@ -61,7 +61,11 @@ const [categoria, setCategoria] = useState("Todos");
           <header className="topo">
             <span className="hero-badge">✨ Personalizados Exclusivos</span>
 
-            <h1>🎀 Camila Personalizados</h1>
+            <img
+    src="/logo-camila.jpeg"
+    alt="Camila Personalizados"
+    className="logo-topo"
+  />
 
            
 
