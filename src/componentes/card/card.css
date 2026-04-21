@@ -278,13 +278,14 @@
   }
 
   .card {
-     min-height: 380px;
+     min-height: 430px;
     padding: 10px;
   }
 
   .image-container {
     height: 180px;
   }
+  
 
   .card h2 {
     font-size: 13px;

@@ -6,10 +6,11 @@ import { useProdutoData } from "./hooks/useProdutoData";
 import type { ProdutoData } from "./interface/ProdutoData";
 import { CreateModal } from "./componentes/create-modal/create-modal";
 import { EditModal } from "./componentes/create-modal/EditModal";
-import PersonalizarProduto from "./componentes/create-modal/PersonalizarProduto";
+import PersonalizarProdutoimagem from "./componentes/create-modal/PersonalizarProdutoimagem";
 
 function App() {
   const { data, isLoading, error } = useProdutoData();
+  //const [produtoSelecionadoimagem, setProdutoSelecionadoimagem] = useState(null);
 const [busca, setBusca] = useState("");
 const [categoria, setCategoria] = useState("Todos");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,7 +111,7 @@ const [categoria, setCategoria] = useState("Todos");
           </section>
 
           <div className="card-grid">
-            {produtosFiltrados?.map((produtoData: ProdutoData) => (
+            {produtosFiltrados?.map && data.map((produtoData: ProdutoData) => (
               <Card
                 key={produtoData.id}
                 id={produtoData.id}
@@ -143,7 +144,7 @@ const [categoria, setCategoria] = useState("Todos");
           )}
         </>
       ) : (
-        <PersonalizarProduto
+        <PersonalizarProdutoimagem
           produto={produtoSelecionado}
           voltar={() => setProdutoSelecionado(null)}
         />

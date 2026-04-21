@@ -1,0 +1,137 @@
+.produto-page {
+  min-height: 100vh;
+  background: #f8f9fb;
+  padding: 20px;
+}
+
+.btn-voltar {
+  border: none;
+  background: #111;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.produto-box {
+  max-width: 1200px;
+  margin: auto;
+  background: white;
+  border-radius: 22px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  box-shadow: 0 12px 35px rgba(0,0,0,.08);
+}
+
+.imagem-principal {
+  width: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  transition: .3s;
+}
+
+.imagem-principal:hover {
+  transform: scale(1.05);
+}
+
+.miniaturas {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.miniaturas img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  cursor: pointer;
+  object-fit: cover;
+  border: 2px solid #eee;
+}
+
+.badge-top {
+  background: #111;
+  color: gold;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.info-produto h1 {
+  font-size: 34px;
+  margin: 14px 0;
+}
+
+.stars {
+  color: #ffb400;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.stars span {
+  color: #666;
+  margin-left: 8px;
+}
+
+.preco-antigo {
+  color: red;
+  text-decoration: line-through;
+  margin-top: 18px;
+}
+
+.preco-atual {
+  font-size: 42px;
+  color: #16a34a;
+  margin: 8px 0;
+}
+
+.parcelado {
+  color: #555;
+}
+
+.oferta {
+  color: #ff3d00;
+  font-weight: bold;
+  margin-top: 14px;
+}
+
+.vantagens {
+  margin-top: 20px;
+  display: grid;
+  gap: 8px;
+}
+
+.btn-comprar {
+  margin-top: 25px;
+  background: linear-gradient(45deg,#25d366,#14b85a);
+  color: white;
+  padding: 16px;
+  border-radius: 14px;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .produto-box{
+    grid-template-columns:1fr;
+    padding:16px;
+  }
+
+  .info-produto h1{
+    font-size:26px;
+  }
+
+  .preco-atual{
+    font-size:34px;
+  }
+}

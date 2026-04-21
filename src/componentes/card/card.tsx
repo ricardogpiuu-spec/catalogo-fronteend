@@ -25,7 +25,7 @@ export function Card({
   textoOferta,
   onEdit,
   isAdmin,
-  //onClick,
+  onClick,
 }: CardProps) {
   const desconto =
     precoAntigo && precoAntigo > preco
@@ -61,7 +61,7 @@ Veja a imagem:
   };
 
   return (
-    <div className="card">
+    <div className="card" onClick={onClick} style={{ cursor: "pointer"}}>
       {" "}
       {/*onClick={onClick}  style={{ cursor: "pointer" }}*/}
       <div className="image-container">
