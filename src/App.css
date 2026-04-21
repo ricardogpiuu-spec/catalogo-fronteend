@@ -9,8 +9,8 @@
 }
 .card-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
 }
 
 /*.container button {
@@ -161,32 +161,39 @@
     right: 20px;
   }
 }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  background: #f8f9fc;
+   background: linear-gradient(180deg, #fff7fb, #ffeef5, #ffffff);
   font-family: Arial, Helvetica, sans-serif;
+  color: #222;
 }
 
 .container {
   width: 100%;
-  min-height: 100vh;
-  padding: 18px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 14px 60px;
 }
 
 .topo {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+   background: linear-gradient(135deg, #ff5fa2, #ff8bc2, #ffc2dd);
+  border-radius: 28px;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 20px 45px rgba(255, 105, 180, 0.22);
   margin-bottom: 20px;
 }
 
 .topo h1 {
-  font-size: 30px;
-  margin: 0;
+    font-size: 44px;
   font-weight: 900;
-  color: #d63384;
+  margin-bottom: 12px;
 }
 
 .btn-topo {
@@ -199,31 +206,34 @@ body {
 }
 
 .banner-home {
-  background: linear-gradient(90deg, #ff4da6, #d63384);
-  color: white;
-  padding: 16px;
+  background: white;
   border-radius: 18px;
+  padding: 14px;
   text-align: center;
-  font-weight: bold;
-  margin-bottom: 22px;
-  font-size: 18px;
+  font-weight: 800;
+  color: #e91e63;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
 }
 .hero-top {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  background: white;
+  border-radius: 24px;
+  padding: 20px;
   margin-bottom: 24px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.06);
 }
 
 .buscar {
   width: 100%;
-  max-width: 500px;
-  padding: 14px 18px;
+  padding: 14px 16px;
   border-radius: 14px;
-  border: 2px solid #eee;
+  border: 2px solid #f2d8e6;
+  outline: none;
   font-size: 15px;
-  margin: 0 auto 16px;
-  display: block;
+  margin-bottom: 18px;
+}
+.buscar:focus {
+  border-color: #ff5fa2;
 }
 
 .categorias {
@@ -235,26 +245,29 @@ body {
 }
 
 .categorias button {
-  border: none;
+    border: none;
   padding: 10px 16px;
   border-radius: 30px;
-  background: #fff;
-  font-weight: 700;
+  background: #fff0f7;
+  color: #e91e63;
+  font-weight: 800;
   cursor: pointer;
-  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+  transition: .25s;
 }
 
 .categorias button:hover {
-  transform: translateY(-2px);
+   background: #ff5fa2;
+  color: white;
 }
 
 .banner-rotativo {
-  background: linear-gradient(90deg, #ff4da6, #d63384);
+  background: linear-gradient(45deg,#ff3366,#ff7aa8);
   color: white;
-  padding: 15px;
-  border-radius: 18px;
+  padding: 14px;
+  border-radius: 16px;
   text-align: center;
   font-weight: 900;
+  margin-bottom: 16px;
   
   animation: pulseBanner 1.2s infinite;
 }
@@ -283,7 +296,7 @@ body {
   justify-content: center;
   font-size: 28px;
   text-decoration: none;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+ box-shadow: 0 12px 30px rgba(37,211,102,.35);
   z-index: 999;
 }
 .hero {
@@ -305,13 +318,13 @@ body {
 }
 
 .hero-badge {
-  background: rgba(255, 255, 255, 0.18);
+  display: inline-block;
   padding: 8px 14px;
   border-radius: 30px;
+  background: rgba(255,255,255,.18);
   font-size: 13px;
   font-weight: 700;
-  display: inline-block;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 .hero h1 {
   font-size: 52px;
@@ -321,38 +334,51 @@ body {
 }
 
 .hero p {
-  font-size: 20px;
+  font-size: 18px;
+  max-width: 650px;
+  margin: 0 auto 22px;
   line-height: 1.5;
-  margin-bottom: 28px;
 }
 
 .hero-btn {
-  display: inline-block;
-  padding: 16px 28px;
-  border-radius: 40px;
+   display: inline-block;
+  padding: 15px 28px;
+  border-radius: 50px;
   background: white;
-  color: #c2185b;
-  font-weight: 900;
+  color: #e91e63;
   text-decoration: none;
-  transition: 0.25s;
+  font-weight: 900;
+  transition: .25s;
 }
 
 .hero-btn:hover {
   transform: translateY(-3px) scale(1.03);
+
 }
 
 .hero-info {
   display: flex;
-  gap: 14px;
+  gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 22px;
-  font-size: 14px;
-  font-weight: 600;
+}
+.hero-info span {
+  background: #fff5fa;
+  color: #c2185b;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 700;
 }
 @media (max-width: 768px) {
+ .topo {
+  padding: 30px 16px;
+ }
   .topo h1 {
-    font-size: 16px;
+    font-size: 30px;
+  }
+   .topo p {
+    font-size: 15px;
   }
   .buscar {
     width: 85%;
@@ -401,8 +427,14 @@ body {
   }
 }
 @media (max-width: 740px) {
+  .topo {
+  padding: 30px 16px;
+ }
   .topo h1 {
-    font-size: 16px;
+    font-size: 30px;
+  }
+   .topo p {
+    font-size: 15px;
   }
 
   .btn-topo {
@@ -416,7 +448,7 @@ body {
 
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
   }
   .hero {
     padding: 35px 15px;
@@ -444,7 +476,13 @@ body {
     gap: 8px;
   }
   .buscar {
-    width: 85%;
+    width: 100%;
+  }
+   .novo {
+    top: 12px;
+    right: 12px;
+    font-size: 12px;
+    padding: 10px 14px;
   }
  
 }
