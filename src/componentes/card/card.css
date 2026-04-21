@@ -9,23 +9,16 @@
 
 /* CARD */
 .card {
-  background: #fff;
-  border-radius: 18px;
+   background: white;
+  border-radius: 20px;
   padding: 12px;
-  border: 1px solid #f1f1f1;
-  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-
-  width: 100%;
-  max-width: 240px;
-  margin: 0 auto;
-
+  box-shadow: 0 10px 24px rgba(0,0,0,.08);
+  border: 1px solid #f0f0f0;
+  transition: .25s ease;
   display: flex;
   flex-direction: column;
   min-height: 430px;
-
-  position: relative;
   overflow: hidden;
-  transition: all 0.25s ease;
 }
 
 /* brilho premium */
@@ -50,8 +43,8 @@
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+ transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(0,0,0,.12);
 }
 
 /* PROMOÇÃO */
@@ -61,39 +54,31 @@
 
 /* IMAGEM */
 .image-container {
-  position: relative;
-  width: 100%;
-  height: 220px;
+   width: 100%;
+  height: 230px;
   border-radius: 16px;
   overflow: hidden;
-  background: #f8f8f8;
+  background: #fafafa;
 }
 
 .image-container img {
-  width: 100%;
+    width: 100%;
   height: 100%;
   object-fit: contain;
-  transition: 0.3s ease;
+  transition: .3s;
 }
 
 .card:hover img {
-  transform: scale(1.05);
+ transform: scale(1.07);
 }
 
 /* TITULO */
 .card h2 {
   font-size: 16px;
-  font-weight: 800;
-  color: #222;
   text-align: center;
-  margin: 10px 0;
-  line-height: 1.3;
-
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
+  font-weight: 800;
+  margin: 12px 0 10px;
+  color: #222;
   min-height: 42px;
 }
 
@@ -117,6 +102,7 @@
   font-size: 26px;
   font-weight: 900;
   color: #16a34a;
+  text-align: center;
 }
 
 .badge-off {
@@ -131,49 +117,43 @@
 
 /* BADGE PRINCIPAL */
 .badge-urgente {
-  background: #111;
+   background: linear-gradient(45deg,#111,#333);
   color: #ffd700;
-  padding: 8px 12px;
+  padding: 8px 10px;
   border-radius: 12px;
-  font-size: 13px;
-  font-weight: 900;
+  font-size: 12px;
+  font-weight: 800;
   text-align: center;
-  animation: piscar 1.2s infinite;
-  box-shadow: 0 8px 18px rgba(255, 90, 0, 0.35);
+  animation: pulseBadge 1s infinite;
 }
 
 /* TEXTO OFERTA */
 .oferta-hoje {
-  font-size: 14px;
-  font-weight: 800;
   color: #ff3d00;
+  font-size: 13px;
+  font-weight: 800;
   text-align: center;
-  animation: piscar 1s infinite;
 }
 
 /* WHATSAPP */
 .btn-whatsapp {
-  margin-top: 10px;
-  width: 89%;
-  padding: 13px;
-  border-radius: 12px;
-  text-decoration: none;
+   margin-top: auto;
+  background: linear-gradient(45deg,#25d366,#13b955);
   color: white;
+  text-decoration: none;
+  border-radius: 14px;
+  padding: 13px;
+  text-align: center;
   font-weight: 800;
-  font-size: 15px;
-
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 8px;
-
-  background: linear-gradient(45deg, #25d366, #13b955);
-  transition: 0.25s ease;
-  animation: pulseBtn 1.3s infinite;
+  transition: .2s;
 }
 
 .btn-whatsapp:hover {
-  transform: translateY(-2px);
+ transform: scale(1.03);
 }
 
 /* INFO */
@@ -267,13 +247,12 @@
   }
 
   .card {
-    max-width: 100%;
-    min-height: 360px;
-    padding: 8px;
+      min-height: 380px;
+    padding: 10px;
   }
 
   .image-container {
-    height: 150px;
+    height: 180px;
   }
 
   .card h2 {
@@ -283,15 +262,45 @@
 
   .preco-normal,
   .preconumero.promo {
-    font-size: 19px;
+    font-size: 22px;
   }
 
   .btn-whatsapp {
     font-size: 13px;
-    padding: 9px;
+    padding: 10px;
   }
 }
+@media (max-width: 740px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 10px;
+  }
 
+  .card {
+     min-height: 380px;
+    padding: 10px;
+  }
+
+  .image-container {
+    height: 180px;
+  }
+
+  .card h2 {
+    font-size: 13px;
+    min-height: 34px;
+  }
+
+  .preco-normal,
+  .preconumero.promo {
+    font-size: 22px;
+  }
+
+  .btn-whatsapp {
+    font-size: 13px;
+    padding: 10px;
+  }
+}
 /* iPhone XR / 11 / 12 / 14 */
 @media (max-width: 414px) {
   .card-grid {

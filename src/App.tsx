@@ -37,52 +37,68 @@ function App() {
   if (error) return <p>Erro ao carregar</p>;
 
   return (
-    <div className="container">
-      {!produtoSelecionado ? (
-        <>
-          <h1>Catalogo Camila Personalizado</h1>
+  <div className="container">
+    {!produtoSelecionado ? (
+      <>
+        <header className="topo">
+          <h1>🎀 Camila Personalizados</h1>
 
-          <div className="card-grid">
-            {data?.map((produtoData: ProdutoData) => (
-              <Card
-                key={produtoData.id}
-                id={produtoData.id}
-                preco={produtoData.preco}
-                precoAntigo={produtoData.precoAntigo}
-                title={produtoData.title}
-                imagem={produtoData.imagem}
-                badge={produtoData.badge}
-                textoOferta={produtoData.textoOferta}
-                onEdit={() => setProdutoEdit(produtoData)}
-                isAdmin={isAdmin}
-                onClick={() => setProdutoSelecionado(produtoData)}
-              />
-            ))}
-          </div>
+          <a
+            href="https://wa.me/5563991111158"
+            target="_blank"
+            className="btn-topo"
+          >
+            WhatsApp
+          </a>
+        </header>
 
-          {isAdmin && isModalOpen && <CreateModal closeModal={closeModal} />}
+        <section className="banner-home">
+          ✨ Produtos personalizados com amor 💖
+        </section>
 
-          {isAdmin && (
-            <button className="novo" onClick={openModal}>
-              Adicionar Novo item
-            </button>
-          )}
-
-          {produtoEdit && (
-            <EditModal
-              produto={produtoEdit}
-              closeModal={() => setProdutoEdit(null)}
+        <div className="card-grid">
+          {data?.map((produtoData: ProdutoData) => (
+            <Card
+              key={produtoData.id}
+              id={produtoData.id}
+              preco={produtoData.preco}
+              precoAntigo={produtoData.precoAntigo}
+              title={produtoData.title}
+              imagem={produtoData.imagem}
+              badge={produtoData.badge}
+              textoOferta={produtoData.textoOferta}
+              onEdit={() => setProdutoEdit(produtoData)}
+              isAdmin={isAdmin}
+              onClick={() => setProdutoSelecionado(produtoData)}
             />
-          )}
-        </>
-      ) : (
-        <PersonalizarProduto
-          produto={produtoSelecionado}
-          voltar={() => setProdutoSelecionado(null)}
-        />
-      )}
-    </div>
-  );
+          ))}
+        </div>
+
+        {isAdmin && isModalOpen && (
+          <CreateModal closeModal={closeModal} />
+        )}
+
+        {isAdmin && (
+          <button className="novo" onClick={openModal}>
+            + Novo Produto
+          </button>
+        )}
+
+        {produtoEdit && (
+          <EditModal
+            produto={produtoEdit}
+            closeModal={() => setProdutoEdit(null)}
+          />
+        )}
+      </>
+    ) : (
+      <PersonalizarProduto
+        produto={produtoSelecionado}
+        voltar={() => setProdutoSelecionado(null)}
+      />
+    )}
+  </div>
+);
 }
 
 export default App;
