@@ -262,7 +262,8 @@
 @media (max-width: 768px) {
   .card-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 12px;
+    padding: 10px;
   }
 
   .card {
@@ -325,12 +326,19 @@
 /* iPhone 12 Pro / 14 Pro */
 @media (max-width: 390px) {
   .card {
-    min-height: 330px;
+    min-height: 370px;
   }
 
   .image-container {
-    height: 135px;
+    height: 170px;
+    border-radius: 20px;
   }
+   .image-container img {
+    transform: scale(1.06);
+  }
+  .card:active .image-container img {
+  transform: scale(1.12);
+}
 
   .preco-normal,
   .preconumero.promo {
@@ -450,5 +458,4 @@
   .image-container {
     height: 145px;
   }
-  
 }
