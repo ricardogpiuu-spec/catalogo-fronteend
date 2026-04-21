@@ -115,7 +115,7 @@ const [categoria, setCategoria] = useState("Todos");
           </section>
 
           <div className="card-grid">
-            {produtosFiltrados?.map && data.map((produtoData: ProdutoData) => (
+            {produtosFiltrados?.map((produtoData: ProdutoData) => (
               <Card
                 key={produtoData.id}
                 id={produtoData.id}
