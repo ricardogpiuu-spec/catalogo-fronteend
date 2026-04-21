@@ -1,4 +1,4 @@
-import axios, { type AxiosPromise } from "axios";
+import axios from "axios";
 //import type { ProdutoData } from "../interface/ProdutoData";
 import { useQuery } from "@tanstack/react-query";
 
