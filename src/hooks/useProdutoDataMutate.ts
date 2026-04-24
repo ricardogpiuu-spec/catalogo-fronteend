@@ -1,4 +1,4 @@
-import axios, { type AxiosPromise } from "axios";
+import axios  from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const API_URL = "https://catalogo-backend-9xqq.onrender.com";
