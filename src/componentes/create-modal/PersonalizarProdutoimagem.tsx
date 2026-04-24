@@ -1,14 +1,20 @@
 import "./personalizar.css";
 import { FaWhatsapp, FaStar, FaShieldAlt, FaTruck } from "react-icons/fa";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 interface Props {
   produto: any;
   voltar: () => void;
 }
 
+
 export default function PersonalizarProdutoimagem({ produto, voltar }: Props) {
   const [imagemAtual, setImagemAtual] = useState(produto.imagens?.[0]);
+const grande = imagemAtual?.replace(
+  "/upload/",
+  "/upload/f_auto/q_auto/w_700/"
+);
+
 
   const numero = "5563991111158";
 
@@ -20,6 +26,10 @@ R$ ${produto.preco}`;
   const whatsappLink = `https://wa.me/${numero}?text=${encodeURIComponent(
     mensagem,
   )}`;
+  useEffect(() => {
+  const img = new Image();
+  img.src = grande;
+}, [grande]);
 
   return (
     <div className="produto-page">
@@ -30,19 +40,27 @@ R$ ${produto.preco}`;
       <div className="produto-box">
         {/* GALERIA */}
         <div className="galeria">
-          <img src={imagemAtual} className="imagem-principal" />
+          <img src={grande} className="imagem-principal" loading="eager" />
 
-          <div className="miniaturas">
-            {produto.imagens?.map((img: string, index: number) => (
+           <div className="miniaturas">
+          {produto.imagens?.map((img: string, index: number) => {
+            const mini = img.replace(
+              "/upload/",
+              "/upload/f_auto/q_auto/w_80/h_80/c_fill/"
+            );
+
+            return (
               <img
                 key={index}
-                src={img}
+                src={mini}
                 onClick={() => setImagemAtual(img)}
-                className={imagemAtual === img ? "miniativa" : ""}
+                className={imagemAtual === img ? "miniativa" : "" }
+                  loading="lazy"
               />
-            ))}
-          </div>
+            );
+          })}
         </div>
+      </div>
 
         {/* INFO */}
         <div className="info-produto">

@@ -14,10 +14,5 @@ export async function uploadImage(file: File) {
 
   const data = await res.json();
 
-  const urlOtimizada = data.secure_url.replace(
-    "/upload/",
-    "/upload/f_auto,q_auto,w_500/",
-  );
-
-  return urlOtimizada;
+  return data.secure_url;
 }

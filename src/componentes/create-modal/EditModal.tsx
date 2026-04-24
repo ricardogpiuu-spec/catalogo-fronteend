@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { uploadImage } from "../../uploadImage/uploadImage";
 import "./modal.css";
 
 export function EditModal({ produto, closeModal }: any) {
@@ -6,56 +7,98 @@ export function EditModal({ produto, closeModal }: any) {
     produto?.precoAntigo && Number(produto.precoAntigo) > Number(produto.preco);
 
   const [title, setTitle] = useState(produto?.title || "");
-
-  // preço atual
   const [preco, setPreco] = useState(String(produto?.preco || ""));
-
-  // preço antigo
   const [precoAntigo, setPrecoAntigo] = useState(
     temPromocao ? String(produto?.precoAntigo) : "",
   );
 
   const [promocaoAtiva, setPromocaoAtiva] = useState(temPromocao);
 
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState(produto?.imagens?.[0] || "");
   const [loading, setLoading] = useState(false);
 
-  const [badge, setBadge] = useState("");
-  const [textoOferta, setTextoOferta] = useState("");
+  const [imagens, setImagens] = useState<string[]>(produto?.imagens || []);
 
-  const handleFileChange = (e: any) => {
-    const selected = e.target.files[0];
-    setFile(selected);
-    setPreview(URL.createObjectURL(selected));
+  const [preview, setPreview] = useState<string[]>(produto?.imagens || []);
+
+  const [badge, setBadge] = useState(produto?.badge || "");
+  const [textoOferta, setTextoOferta] = useState(produto?.textoOferta || "");
+
+  // ADICIONAR NOVAS IMAGENS
+  const handleFileChange = async (e: any) => {
+    const lista = Array.from(e.target.files || []) as File[];
+
+    const total = imagens.length + lista.length;
+
+    if (total > 4) {
+      alert("Máximo 4 imagens");
+      return;
+    }
+
+    try {
+      const novasUrls = await Promise.all(
+        lista.map((file) => uploadImage(file)),
+      );
+
+      setImagens([...imagens, ...novasUrls]);
+      setPreview([...preview, ...novasUrls]);
+    } catch {
+      alert("Erro ao enviar imagens");
+    }
+
+    e.target.value = "";
+  };
+
+  // REMOVER
+  const removerImagem = (index: number) => {
+    const novas = imagens.filter((_, i) => i !== index);
+
+    setImagens(novas);
+    setPreview(novas);
+  };
+
+  // SUBIR
+  const subirImagem = (index: number) => {
+    if (index === 0) return;
+
+    const novas = [...imagens];
+
+    [novas[index - 1], novas[index]] = [novas[index], novas[index - 1]];
+
+    setImagens(novas);
+    setPreview(novas);
+  };
+
+  // DESCER
+  const descerImagem = (index: number) => {
+    if (index === imagens.length - 1) return;
+
+    const novas = [...imagens];
+
+    [novas[index + 1], novas[index]] = [novas[index], novas[index + 1]];
+
+    setImagens(novas);
+    setPreview(novas);
   };
 
   const submit = async () => {
     try {
       setLoading(true);
 
-      const formData = new FormData();
-
-      formData.append("title", title);
-      formData.append("preco", preco);
-      formData.append("badge", badge);
-      formData.append("textoOferta", textoOferta);
-
-      if (promocaoAtiva) {
-        formData.append("precoAntigo", precoAntigo);
-      } else {
-        formData.append("precoAntigo", "");
-      }
-
-      if (file) {
-        formData.append("file", file);
-      }
-
       await fetch(
         `https://catalogo-backend-9xqq.onrender.com/produtos/${produto.id}`,
         {
           method: "PUT",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            preco: Number(preco),
+            precoAntigo: promocaoAtiva ? Number(precoAntigo) : 0,
+            badge,
+            textoOferta,
+            imagens, // array completo
+          }),
         },
       );
 
@@ -85,11 +128,7 @@ export function EditModal({ produto, closeModal }: any) {
 
         {promocaoAtiva ? (
           <>
-            <input
-              placeholder="Preço Antigo"
-              value={precoAntigo}
-              readOnly={promocaoAtiva}
-            />
+            <input placeholder="Preço Antigo" value={precoAntigo} readOnly />
 
             <input
               placeholder="Preço Promocional"
@@ -98,13 +137,11 @@ export function EditModal({ produto, closeModal }: any) {
             />
           </>
         ) : (
-          <>
-            <input
-              placeholder="Preço"
-              value={preco}
-              onChange={(e) => setPreco(e.target.value)}
-            />
-          </>
+          <input
+            placeholder="Preço"
+            value={preco}
+            onChange={(e) => setPreco(e.target.value)}
+          />
         )}
 
         <div className="box-promocao">
@@ -113,11 +150,9 @@ export function EditModal({ produto, closeModal }: any) {
               className="btn-remover"
               type="button"
               onClick={() => {
-                setPromocaoAtiva(true);
-
-                setPreco(precoAntigo); // valor novo recebe valor antigo
-
-                setPrecoAntigo(precoAntigo);
+                setPromocaoAtiva(false);
+                setPreco(precoAntigo);
+                setPrecoAntigo("");
               }}
             >
               ❌ Remover Promoção
@@ -135,6 +170,7 @@ export function EditModal({ produto, closeModal }: any) {
             </button>
           )}
         </div>
+
         <select value={badge} onChange={(e) => setBadge(e.target.value)}>
           <option value="">Selecione Badge</option>
           <option value="🔥 Últimas Unidades">🔥 Últimas Unidades</option>
@@ -156,9 +192,36 @@ export function EditModal({ produto, closeModal }: any) {
           <option value="🔒 Compra Segura">🔒 Compra Segura</option>
         </select>
 
-        <input type="file" onChange={handleFileChange} />
+        {/* INPUT IMAGENS */}
+        <input
+          type="file"
+          multiple
+          accept="image/*"
+          onChange={handleFileChange}
+        />
 
-        {preview && <img src={preview} className="preview-img" />}
+        <p>
+          1ª imagem = CAPA <br />
+          2ª,3ª,4ª = Miniaturas
+        </p>
+
+        <div className="preview-box">
+          {preview.map((img, i) => (
+            <div key={i} className="item-preview">
+              <img src={img} className="preview-img" />
+
+              <small>{i === 0 ? "CAPA" : `MINI ${i}`}</small>
+
+              <div className="acoes-preview">
+                <button onClick={() => subirImagem(i)}>⬆</button>
+
+                <button onClick={() => descerImagem(i)}>⬇</button>
+
+                <button onClick={() => removerImagem(i)}>🗑</button>
+              </div>
+            </div>
+          ))}
+        </div>
 
         <button className="editar-produto" onClick={submit} disabled={loading}>
           {loading ? "⏳ Salvando..." : "🚀 Salvar"}

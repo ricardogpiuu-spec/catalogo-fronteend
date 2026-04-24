@@ -31,13 +31,19 @@ export function Card({
     precoAntigo && precoAntigo > preco
       ? Math.round(((precoAntigo - preco) / precoAntigo) * 100)
       : 0;
+      
   //const estoqueBaixo = true;
   const numero = "5563991111158";
 
   const { mutate: deleteProduto } = useDeleteProduto();
     const imagemPrincipal = Array.isArray(imagens)
-    ? imagens[0]
-    : imagens;
+  ? imagens[0]
+  : imagens;
+
+const capa = imagemPrincipal?.replace(
+  "/upload/",
+  "/upload/f_auto/q_auto/w_400/c_fill/"
+);
 
   const mensagem = `Olá! Quero comprar este produto 👇
 
@@ -61,6 +67,8 @@ Veja a imagem:
     if (confirm("Tem certeza que deseja excluir?")) {
       deleteProduto(id);
     }
+
+    
   };
 
   return (
@@ -69,7 +77,7 @@ Veja a imagem:
       {/*onClick={onClick}  style={{ cursor: "pointer" }}*/}
       <div className="image-container">
          <img
-          src={imagemPrincipal}
+          src={capa}
           alt={title}
           loading="lazy"
         />

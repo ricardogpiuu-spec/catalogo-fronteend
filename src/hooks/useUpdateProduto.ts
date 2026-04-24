@@ -14,8 +14,8 @@ export function useUpdateProduto() {
       formData.append("preco", data.preco);
       formData.append("precoAntigo", data.precoAntigo);
       formData.append("imageUrl", data.imageUrl);
-      formData.append("badge", data.badge);
-      formData.append("textoOferta", data.textoOferta);
+       formData.append("badge", data.badge);
+       formData.append("textoOferta", data.textoOferta);
 
       return axios.put(`${API_URL}/produtos/${data.id}`, formData);
     },
